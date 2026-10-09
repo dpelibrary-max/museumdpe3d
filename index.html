@@ -30,7 +30,7 @@
   <div class="viewer-container">
     <model-viewer 
       id="viewer"
-      src="sword.glb" 
+      src="model/sword.glb" 
       alt="โมเดล 3 มิติ" 
       auto-rotate 
       camera-controls 
@@ -41,7 +41,7 @@
   <script>
     function loadModel(basePath, btn) {
       const viewer = document.getElementById('viewer');
-      viewer.src = basePath + '.glb';
+      viewer.src = 'model/' + basePath + '.glb';
       document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
