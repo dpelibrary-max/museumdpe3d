@@ -7,19 +7,70 @@
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tahoma', sans-serif; }
-    body { width: 100vw; height: 100vh; overflow: hidden; background: #222; display: flex; flex-direction: column; }
-    .menu-bar { padding: 10px; background: #1e1e1e; display: flex; gap: 8px; overflow-x: auto; border-bottom: 1px solid #333; white-space: nowrap; }
-    .menu-btn { background: #2a2a2a; color: #fff; border: 1px solid #444; padding: 8px 14px; border-radius: 20px; cursor: pointer; font-size: 14px; transition: all 0.2s; }
-    .menu-btn:hover, .menu-btn.active { background: #007bff; border-color: #007bff; }
+    
+    /* พื้นหลังไล่เฉดสีพาสเทล นุ่มนวลสบายตา */
+    body { 
+      width: 100vw; 
+      height: 100vh; 
+      overflow: hidden; 
+      background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+      display: flex; 
+      flex-direction: column; 
+    }
+
+    /* เมนูด้านบนแบบกระจกเบลอ (Glassmorphism) */
+    .menu-bar { 
+      padding: 12px 16px; 
+      background: rgba(255, 255, 255, 0.4); 
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex; 
+      gap: 10px; 
+      overflow-x: auto; 
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5); 
+      white-space: nowrap; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .menu-btn { 
+      background: rgba(255, 255, 255, 0.7); 
+      color: #333; 
+      border: 1px solid rgba(255, 255, 255, 0.8); 
+      padding: 8px 16px; 
+      border-radius: 20px; 
+      cursor: pointer; 
+      font-size: 14px; 
+      font-weight: bold;
+      transition: all 0.3s ease; 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.95);
+      transform: translateY(-1px);
+    }
+
+    .menu-btn.active { 
+      background: #007bff; 
+      color: #fff;
+      border-color: #007bff; 
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+
     .viewer-container { flex: 1; width: 100%; height: 100%; position: relative; }
-    model-viewer { width: 100%; height: 100%; background-color: #2b2b2b; }
+    
+    /* ตัว Viewer พื้นหลังใส เพื่อให้มองเห็นสีพาสเทลด้านหลัง */
+    model-viewer { 
+      width: 100%; 
+      height: 100%; 
+      background-color: transparent; 
+    }
   </style>
 </head>
 <body>
 
   <div class="menu-bar">
-    <button class="menu-btn active" onclick="loadModel('sword', this)">ดาบกระบี่กระบอง</button>
-    <button class="menu-btn" onclick="loadModel('table', this)">โต๊ะอธิบดีคนแรกฯ</button>
+    <button class="menu-btn active" onclick="loadModel('table', this)">โต๊ะอธิบดีคนแรกฯ</button>
     <button class="menu-btn" onclick="loadModel('trophy', this)">ถ้วยฟีฟ่า</button>
     <button class="menu-btn" onclick="loadModel('podium', this)">แท่นที่ประทับฯ</button>
     <button class="menu-btn" onclick="loadModel('statue', this)">พละพลบดี</button>
@@ -30,23 +81,9 @@
   <div class="viewer-container">
     <model-viewer 
       id="viewer"
-      src="model/sword.glb" 
+      src="model/table.glb" 
       alt="โมเดล 3 มิติ" 
       auto-rotate 
       camera-controls 
       shadow-intensity="1"
-      draco-decoder-path="https://www.gstatic.com/draco/versioned/decoders/1.5.6/">
-    </model-viewer>
-  </div>
-
-  <script>
-    function loadModel(basePath, btn) {
-      const viewer = document.getElementById('viewer');
-      viewer.src = 'model/' + basePath + '.glb';
-      document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-  </script>
-
-</body>
-</html>
+      draco-decoder-path="
